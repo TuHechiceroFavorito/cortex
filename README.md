@@ -1,2 +1,2 @@
 # cortex
-A cortex that wraps around a core and allows for data processing of several interfaces
+Project in development by TuHechiceroFavorito and AlbertoArostegui. It's purpose is to serve as a cortex for complex data processing in multiporpuse systems with diferent interfaces
