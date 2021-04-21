@@ -1,18 +1,13 @@
+from time import sleep
 
+from elec import Led
 
-class Leds:
-    def __init__(self):
-        self.estado = 0
+l1 = Led()
 
-    def ton(self):
-        self.estado = 1
-
-    def toff(self):
-        self.estado = 0
-
-
-l1 = Leds()
-
-l1.ton()
-
-print(l1.estado)
+while True:
+    print(l1.estado)
+    sleep(1)
+    l1.ton()
+    print(l1.estado)
+    sleep(1)
+    l1.toff()
