@@ -1,31 +1,55 @@
+import threading
+
 
 
 class Led:
     def __init__(self):
-        self.estado = 0
+        self.estado = None
 
     def ton(self):
-        self.estado = 1
+        self.estado = "on"
+        print("The LED is now " + self.estado)
 
     def toff(self):
-        self.estado = 0
+        self.estado = "off"
+        print("The LED is now " + self.estado)
 
-if __name__ == '__name__':
+
+
+class sensor:
+    def __init__(self):
+        self.distance = None
+
+    def __read(self): #Returns the distance the sensor reads
+
+        resistance = None
+        dist_analog = 2/1023 * resistance
+        if dist_analog > 1023:
+            dist_analog = 1023
+
+
+        return dist_analog
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
     l1 = Led()
 
     l1.ton()
 
     print(l1.estado)
-
-class sensor:
-    def __init__(self):
-        self.deteccion = 0
-
-    def detectar(self):
-        self.deteccion = 1 #Aquí que llegue un comando que sea generado por la detección física
-        self.marcar()
-        self.deteccion = 0 #Asumo que buscamos un pulso no un switch
-
-    def marcar(self):
-
-        return(self.deteccion)
