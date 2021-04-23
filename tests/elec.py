@@ -8,11 +8,9 @@ class Led:
 
     def ton(self):
         self.estado = "on"
-        print("The LED is now " + self.estado)
 
     def toff(self):
         self.estado = "off"
-        print("The LED is now " + self.estado)
 
 
 

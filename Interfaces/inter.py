@@ -31,6 +31,14 @@ class Application(tk.Frame):
         self.turn_off["command"] = self.led.toff
         self.turn_off.pack(side="top")
 
+        self.print_state = tk.Button(self)
+        self.print_state["text"] = "LED state"
+        self.print_state["command"] = self.print
+        self.print_state.pack(side="top")
+
+    def print(self):
+        print(self.led.estado)
+
 
 root = tk.Tk()
 root.iconbitmap("diamond.ico")
