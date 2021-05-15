@@ -1,9 +1,13 @@
 import tkinter as tk
 import sys, os
-sys.path.append(os.path.abspath(os.path.join('..', 'elec')))
+
+#Quick fix for an import issue. Will be improved to a better solution later on
+if os.environ.get("kierot") == "True":
+    sys.path.append(os.getcwd())
+else:
+    sys.path.append(os.path.abspath(os.path.join('..', 'elec')))
+
 from tests.elec import *
-
-
 
 class Application(tk.Frame):
     led = Led()
@@ -41,7 +45,11 @@ class Application(tk.Frame):
 
 
 root = tk.Tk()
-root.iconbitmap("diamond.ico")
+try:
+    root.iconbitmap("diamond.ico")
+except:
+    print("No image found")
+
 root.title("Interface for fucking retarded noobs")
 root.geometry("512x512")
 app = Application(master=root)
