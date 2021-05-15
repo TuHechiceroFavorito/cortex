@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 def test(update, context):
     logging.info('Request for testing sent')
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Alberto chupapollas")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Dani chupapollas")
 
 def on(update, context):
     logging.info('Message to turn on the LED sent')
@@ -22,7 +22,7 @@ def off(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="LED off")
 
 def main():
-    updater = Updater(token=token, use_context=True)
+    updater = Updater(token='1803680816:AAGOW6rlZk7LgUeODKDCF9sYPh5Wvr9kS9w', use_context=True)
 
     dp = updater.dispatcher
 
