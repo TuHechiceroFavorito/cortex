@@ -1,8 +1,6 @@
 from time import sleep
 import concurrent.futures as cf
 
-from tests.test_funk import *
-
 class CreateInterface:
     def __init__(self, funk, *args):
         self.funk = funk
@@ -18,12 +16,16 @@ class CreateInterface:
         if result != None:
             print(result)
     
-nombre = CreateInterface(name, "Kierot")
-edad = CreateInterface(age)
 
-nombre.startInterface()
-edad.startInterface()
+if __name__ == '__main__':
+    from tests.test_funk import *
 
-sleep(5)
+    nombre = CreateInterface(name, "Kierot")
+    edad = CreateInterface(age)
 
-print('not done yet')
+    nombre.startInterface()
+    edad.startInterface()
+
+    sleep(5)
+
+    print('not done yet')
