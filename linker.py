@@ -10,12 +10,7 @@ class CreateInterface:
 
     def startInterface(self):
         executor = cf.ThreadPoolExecutor()
-        
-        if self.args != []:
-            thread = executor.submit(self.funk, self.args)
-        else:
-            thread = executor.submit(self.funk)
-
+        thread = executor.submit(self.funk, *self.args)
         executor.submit(self.error_handler, thread)
 
     def error_handler(self, thread):
