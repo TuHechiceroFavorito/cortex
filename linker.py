@@ -10,8 +10,12 @@ class CreateInterface:
 
     def startInterface(self):
         executor = cf.ThreadPoolExecutor()
+        
+        if self.args != []:
+            thread = executor.submit(self.funk, self.args)
+        else:
+            thread = executor.submit(self.funk)
 
-        thread = executor.submit(self.funk)
         executor.submit(self.error_handler, thread)
 
     def error_handler(self, thread):
@@ -19,7 +23,7 @@ class CreateInterface:
         if result != None:
             print(result)
     
-nombre = CreateInterface(name)
+nombre = CreateInterface(name, "Kierot")
 edad = CreateInterface(age)
 
 nombre.startInterface()
