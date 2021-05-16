@@ -17,8 +17,8 @@ class CreateInterface:
         self.args = list(args)
 
     def startInterface(self):
-        with cf.ThreadPoolExecutor() as ex:
-            ex.submit(self.funk)
+        executor = cf.ThreadPoolExecutor()
+        executor.submit(self.funk)
 
 nombre = CreateInterface(name)
 edad = CreateInterface(age)
@@ -26,3 +26,6 @@ edad = CreateInterface(age)
 nombre.startInterface()
 edad.startInterface()
 
+sleep(5)
+
+print('not done yet')
