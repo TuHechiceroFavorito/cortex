@@ -1,15 +1,7 @@
 from time import sleep
 import concurrent.futures as cf
 
-def name(name='asd'):
-    for i in range(5):
-        print(f'My name is {name}')
-        sleep(2)
-
-def age(age=0):
-    for i in range(5):
-        print(f"I'm {age} years old")
-        sleep(2)
+from tests.test_funk import *
 
 class CreateInterface:
     def __init__(self, funk, *args):
@@ -18,8 +10,15 @@ class CreateInterface:
 
     def startInterface(self):
         executor = cf.ThreadPoolExecutor()
-        executor.submit(self.funk)
 
+        thread = executor.submit(self.funk)
+        executor.submit(self.error_handler, thread)
+
+    def error_handler(self, thread):
+        result = thread.exception()
+        if result != None:
+            print(result)
+    
 nombre = CreateInterface(name)
 edad = CreateInterface(age)
 
