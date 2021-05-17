@@ -9,6 +9,8 @@ else:
     sys.path.append(os.path.abspath(os.path.join('..', 'elec')))
 
 from tests.elec import *
+from tests import tg
+
 
 class Application(tk.Frame):
     led = Led()
@@ -21,8 +23,17 @@ class Application(tk.Frame):
 
     def widgets(self):
 
-        self.result = tk.Label(root)
-        self.result.pack()
+        ledoff = Image.open("ledoff.png")
+        ledon = Image.open("ledpng.png")
+
+        ledoff = ledoff.resize((200, 200), Image.ANTIALIAS)
+        ledon = ledon.resize((200, 200), Image.ANTIALIAS)
+
+        self.ledoff = ImageTk.PhotoImage(image=ledoff)
+        self.ledon = ImageTk.PhotoImage(image=ledon)
+
+        self.result = tk.Label(root, image=self.ledoff)
+        self.result.pack(side="top")
 
         self.turn_on = tk.Button(self)
         self.turn_on["text"] = "Turn on the LED"
@@ -42,41 +53,39 @@ class Application(tk.Frame):
         self.print_state["command"] = self.print
         self.print_state.pack(side="top")
 
+
+
+
+
     def ton(self):
         self.led.ton()
-        self.result["image"] = ledon
-
+        self.result["image"] = self.ledon
 
     def toff(self):
         self.led.toff()
-        self.result["image"] = ledoff
-
-
-
+        self.result["image"] = self.ledoff
 
     def print(self):
         print(self.led.estado)
 
 
 root = tk.Tk()
+
 try:
     root.iconbitmap("diamond.ico")
 except:
     print("No image found")
+
 root.title("Interface for fucking retarded noobs")
-root.geometry("512x512")
-
-ledoff = Image.open("ledoff.png")
-ledon = Image.open("ledpng.png")
-
-ledoff = ledoff.resize((200,200), Image.ANTIALIAS)
-ledon = ledon.resize((200,200), Image.ANTIALIAS)
-
-ledoff = ImageTk.PhotoImage(image=ledoff)
-ledon = ImageTk.PhotoImage(image=ledon)
+root.geometry("256x370")
 
 app = Application(master=root)
-frame = tk.Frame(root, width=200, height=200)
-frame.pack()
+
 
 app.mainloop()
+
+
+
+
+
+
