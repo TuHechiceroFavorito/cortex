@@ -21,6 +21,18 @@ class Application(tk.Frame):
         self.pack()
         self.widgets()
 
+    def preferences(self):
+
+        try:
+            root.iconbitmap("diamond.ico")
+        except:
+            print("No image found")
+
+        root.title("Interface for fucking retarded noobs")
+        root.geometry("256x370")
+
+        app = Application(master=root)
+
     def widgets(self):
 
         ledoff = Image.open("ledoff.png")
@@ -70,14 +82,6 @@ class Application(tk.Frame):
 
 
 root = tk.Tk()
-
-try:
-    root.iconbitmap("diamond.ico")
-except:
-    print("No image found")
-
-root.title("Interface for fucking retarded noobs")
-root.geometry("256x370")
 
 app = Application(master=root)
 
