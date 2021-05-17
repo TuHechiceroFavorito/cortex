@@ -31,8 +31,6 @@ class Application(tk.Frame):
         root.title("Interface for fucking retarded noobs")
         root.geometry("256x370")
 
-        app = Application(master=root)
-
     def widgets(self):
 
         ledoff = Image.open("ledoff.png")
@@ -84,7 +82,6 @@ class Application(tk.Frame):
 root = tk.Tk()
 
 app = Application(master=root)
-
 
 app.mainloop()
 
