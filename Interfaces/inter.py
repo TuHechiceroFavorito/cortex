@@ -11,7 +11,6 @@ else:
 from tests.elec import *
 from tests import tg
 
-
 class Application(tk.Frame):
     led = Led()
 
@@ -22,6 +21,13 @@ class Application(tk.Frame):
         self.widgets()
 
     def widgets(self):
+        try:
+            root.iconbitmap("diamond.ico")
+        except:
+            print("No image found")
+
+        root.title("Interface for fucking retarded noobs")
+        root.geometry("256x370")
 
         ledoff = Image.open("ledoff.png")
         ledon = Image.open("ledpng.png")
@@ -54,9 +60,6 @@ class Application(tk.Frame):
         self.print_state.pack(side="top")
 
 
-
-
-
     def ton(self):
         self.led.ton()
         self.result["image"] = self.ledon
@@ -68,21 +71,12 @@ class Application(tk.Frame):
     def print(self):
         print(self.led.estado)
 
+if __name__ == '__main__':
+    root = tk.Tk()
 
-root = tk.Tk()
+    app = Application(master=root)
 
-try:
-    root.iconbitmap("diamond.ico")
-except:
-    print("No image found")
-
-root.title("Interface for fucking retarded noobs")
-root.geometry("256x370")
-
-app = Application(master=root)
-
-
-app.mainloop()
+    app.mainloop()
 
 
 
