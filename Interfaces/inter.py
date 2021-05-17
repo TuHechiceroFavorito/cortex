@@ -22,8 +22,24 @@ class Application(tk.Frame):
         self.widgets()
 
     def widgets(self):
+        try:
+            root.iconbitmap("diamond.ico")
+        except:
+            print("No image found")
 
-        self.result = tk.Label(root)
+        root.title("Interface for fucking retarded noobs")
+        root.geometry("512x512")
+
+        ledoff = Image.open("ledoff.png")
+        ledon = Image.open("ledpng.png")
+
+        ledoff = ledoff.resize((200,200), Image.ANTIALIAS)
+        ledon = ledon.resize((200,200), Image.ANTIALIAS)
+
+        self.ledoff = ImageTk.PhotoImage(image=ledoff)
+        self.ledon = ImageTk.PhotoImage(image=ledon)
+
+        self.result = tk.Label(root, image=self.ledoff)
         self.result.pack()
 
         self.turn_on = tk.Button(self)
@@ -46,39 +62,16 @@ class Application(tk.Frame):
 
     def ton(self):
         self.led.ton()
-        self.result["image"] = ledon
+        self.result["image"] = self.ledon
 
     def toff(self):
         self.led.toff()
-        self.result["image"] = ledoff
+        self.result["image"] = self.ledoff
 
     def print(self):
         print(self.led.estado)
 
-
-root = tk.Tk()
-
-try:
-    root.iconbitmap("diamond.ico")
-except:
-    print("No image found")
-
-root.title("Interface for fucking retarded noobs")
-root.geometry("512x512")
-
-ledoff = Image.open("ledoff.png")
-ledon = Image.open("ledpng.png")
-
-ledoff = ledoff.resize((200,200), Image.ANTIALIAS)
-ledon = ledon.resize((200,200), Image.ANTIALIAS)
-
-ledoff = ImageTk.PhotoImage(image=ledoff)
-ledon = ImageTk.PhotoImage(image=ledon)
-
-app = Application(master=root)
-frame = tk.Frame(root, width=200, height=200)
-frame.pack()
-
-bot = CreateInterface(tg.main)
-bot.startInterface()
-app.mainloop()
+if __name__ == '__main__':
+    root = tk.Tk()
+    app = Application(master=root)
+    app.mainloop()
