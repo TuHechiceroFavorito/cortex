@@ -19,18 +19,7 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.pack()
-        self.preferences()
         self.widgets()
-
-    def preferences(self):
-
-        try:
-            root.iconbitmap("diamond.ico")
-        except:
-            print("No image found")
-
-        root.title("Interface for fucking retarded noobs")
-        root.geometry("256x370")
 
     def widgets(self):
 
@@ -82,7 +71,16 @@ class Application(tk.Frame):
 
 root = tk.Tk()
 
+try:
+    root.iconbitmap("diamond.ico")
+except:
+    print("No image found")
+
+root.title("Interface for fucking retarded noobs")
+root.geometry("256x370")
+
 app = Application(master=root)
+
 
 app.mainloop()
 
