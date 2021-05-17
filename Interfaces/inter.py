@@ -9,8 +9,6 @@ else:
     sys.path.append(os.path.abspath(os.path.join('..', 'elec')))
 
 from tests.elec import *
-from tests import tg
-
 
 class Application(tk.Frame):
     led = Led()
@@ -19,32 +17,19 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.pack()
+        self.preferences()
         self.widgets()
 
     def preferences(self):
-
         try:
-            root.iconbitmap("diamond.ico")
+            self.master.iconbitmap("diamond.ico")
         except:
             print("No image found")
 
-        root.title("Interface for fucking retarded noobs")
+        self.master.title("Interface for fucking retarded noobs")
         root.geometry("256x370")
 
     def widgets(self):
-
-        ledoff = Image.open("ledoff.png")
-        ledon = Image.open("ledpng.png")
-
-        ledoff = ledoff.resize((200, 200), Image.ANTIALIAS)
-        ledon = ledon.resize((200, 200), Image.ANTIALIAS)
-
-        self.ledoff = ImageTk.PhotoImage(image=ledoff)
-        self.ledon = ImageTk.PhotoImage(image=ledon)
-
-        self.result = tk.Label(root, image=self.ledoff)
-        self.result.pack(side="top")
-
         self.turn_on = tk.Button(self)
         self.turn_on["text"] = "Turn on the LED"
         self.turn_on["command"] = self.ton
@@ -63,9 +48,17 @@ class Application(tk.Frame):
         self.print_state["command"] = self.print
         self.print_state.pack(side="top")
 
+        ledoff = Image.open("ledoff.png")
+        ledon = Image.open("ledpng.png")
 
+        ledoff = ledoff.resize((200,200), Image.ANTIALIAS)
+        ledon = ledon.resize((200,200), Image.ANTIALIAS)
 
+        self.ledoff = ImageTk.PhotoImage(image=ledoff)
+        self.ledon = ImageTk.PhotoImage(image=ledon)
 
+        self.result = tk.Label(self, image=self.ledoff)
+        self.result.pack()
 
     def ton(self):
         self.led.ton()
@@ -79,14 +72,7 @@ class Application(tk.Frame):
         print(self.led.estado)
 
 
-root = tk.Tk()
-
-app = Application(master=root)
-
-app.mainloop()
-
-
-
-
-
-
+if __name__ == '__main__':
+    root = tk.Tk()
+    app = Application(master=root)
+    app.mainloop()
