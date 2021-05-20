@@ -22,6 +22,7 @@ class Application(tk.Frame):
         self.pack()
         self.preferences()
         self.widgets()
+        self.start_interfaces()
 
     def preferences(self):
         try:
@@ -88,6 +89,10 @@ class Application(tk.Frame):
             self.result["image"] = self.ledon
         else:
             self.result["image"] = self.ledoff
+
+    def start_interfaces(self):
+        telegram = CreateInterface(tg.main)
+        telegram.startInterface()
 
 
 if __name__ == '__main__':
