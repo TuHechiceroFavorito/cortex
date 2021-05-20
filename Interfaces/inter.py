@@ -14,6 +14,7 @@ from linker import *
 
 class Application(tk.Frame):
     led = Led()
+    ir = sensor()
 
     def __init__(self, master=None):
         super().__init__(master)
@@ -30,7 +31,7 @@ class Application(tk.Frame):
             print("No image found")
 
         self.master.title("Interface for fucking retarded noobs")
-        root.geometry("256x370")
+        root.geometry("270x370")
 
     def widgets(self):
         self.turn_on = tk.Button(self)
@@ -46,10 +47,12 @@ class Application(tk.Frame):
         self.turn_off["command"] = self.toff
         self.turn_off.pack(side="top")
 
-        self.print_state = tk.Button(self)
-        self.print_state["text"] = "LED state"
-        self.print_state["command"] = self.print
-        self.print_state.pack(side="top")
+        self.distance = tk.Scale(self, variable=self.ir.dist, from_=0.0, to=2.0, resolution=0.01,
+            orient=tk.HORIZONTAL, command=self.change_value)
+        self.distance.pack(side="top")
+        
+        self.dist_label = tk.Label(self, text="Distance of the object to the IR sensor in metres")
+        self.dist_label.pack(side="top")
 
         ledoff = Image.open("ledoff.png")
         ledon = Image.open("ledpng.png")
@@ -63,6 +66,9 @@ class Application(tk.Frame):
         self.result = tk.Label(self, image=self.ledoff)
         self.result.pack()
 
+        self.value_sensor = tk.Label(self, text=f"Value of the sensor: {self.ir.read()}")
+        self.value_sensor.pack(side="top")
+
     def ton(self):
         self.led.ton()
         self.result["image"] = self.ledon
@@ -74,9 +80,15 @@ class Application(tk.Frame):
     def print(self):
         print(self.led.estado)
 
-    def start_interfaces(self):
-        telegram = CreateInterface(tg.main)
-        telegram.startInterface()
+    def change_value(self, new_value):
+        self.ir.dist = float(new_value)
+        new_read = self.ir.read()
+        self.value_sensor['text'] = f"Value of the sensor: {round(new_read, 2)}"
+        arduino_logic(self.ir, self.led)
+        if self.led.estado == 'on':
+            self.result["image"] = self.ledon
+        else:
+            self.result["image"] = self.ledoff
 
 
 if __name__ == '__main__':
