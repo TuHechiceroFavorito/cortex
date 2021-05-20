@@ -22,7 +22,6 @@ class Application(tk.Frame):
         self.pack()
         self.preferences()
         self.widgets()
-        self.start_interfaces()
 
     def preferences(self):
         try:
