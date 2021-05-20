@@ -24,6 +24,9 @@ class sensor:
 
         return dist_analog
 
+#This function allows to switch the led using the sensor
+#If the 'object' is closer than 1m, the led will turn on. Otherwise it
+#will remain off
 def arduino_logic(sensor, led):
     if sensor.read() > 500:
         led.ton()
