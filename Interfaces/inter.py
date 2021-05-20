@@ -12,6 +12,7 @@ from tests.elec import *
 
 class Application(tk.Frame):
     led = Led()
+    ir = sensor()
 
     def __init__(self, master=None):
         super().__init__(master)
@@ -27,7 +28,7 @@ class Application(tk.Frame):
             print("No image found")
 
         self.master.title("Interface for fucking retarded noobs")
-        root.geometry("256x370")
+        root.geometry("270x370")
 
     def widgets(self):
         self.turn_on = tk.Button(self)
@@ -43,10 +44,11 @@ class Application(tk.Frame):
         self.turn_off["command"] = self.toff
         self.turn_off.pack(side="top")
 
-        self.print_state = tk.Button(self)
-        self.print_state["text"] = "LED state"
-        self.print_state["command"] = self.print
-        self.print_state.pack(side="top")
+        self.distance = tk.Scale(self, variable=self.ir.dist, from_=0.0, to=2.0, resolution=0.01, orient=tk.HORIZONTAL)
+        self.distance.pack(side="top")
+        
+        self.dist_label = tk.Label(self, text="Distance of the object to the IR sensor in metres")
+        self.dist_label.pack(side="top")
 
         ledoff = Image.open("ledoff.png")
         ledon = Image.open("ledpng.png")
