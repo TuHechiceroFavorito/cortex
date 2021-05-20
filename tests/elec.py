@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import threading
-
-=======
 from time import sleep
 
 #This simulates an LED
->>>>>>> main
 class Led:
     def __init__(self):
         self.estado = None
