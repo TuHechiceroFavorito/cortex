@@ -44,7 +44,8 @@ class Application(tk.Frame):
         self.turn_off["command"] = self.toff
         self.turn_off.pack(side="top")
 
-        self.distance = tk.Scale(self, variable=self.ir.dist, from_=0.0, to=2.0, resolution=0.01, orient=tk.HORIZONTAL)
+        self.distance = tk.Scale(self, variable=self.ir.dist, from_=0.0, to=2.0, resolution=0.01,
+            orient=tk.HORIZONTAL, command=self.change_value)
         self.distance.pack(side="top")
         
         self.dist_label = tk.Label(self, text="Distance of the object to the IR sensor in metres")
@@ -62,6 +63,9 @@ class Application(tk.Frame):
         self.result = tk.Label(self, image=self.ledoff)
         self.result.pack()
 
+        self.value_sensor = tk.Label(self, text=f"Value of the sensor: {self.ir.read()}")
+        self.value_sensor.pack(side="top")
+
     def ton(self):
         self.led.ton()
         self.result["image"] = self.ledon
@@ -72,6 +76,11 @@ class Application(tk.Frame):
 
     def print(self):
         print(self.led.estado)
+
+    def change_value(self, new_value):
+        self.ir.dist = float(new_value)
+        new_read = self.ir.read()
+        self.value_sensor['text'] = f"Value of the sensor: {round(new_read, 2)}"
 
 
 if __name__ == '__main__':
