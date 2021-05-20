@@ -13,6 +13,7 @@ class CreateInterface:
 
     def error_handler(self, thread):
         result = thread.exception()
+
         if result != None:
             print(result)
     
@@ -24,8 +25,8 @@ if __name__ == '__main__':
     edad = CreateInterface(age)
 
     nombre.startInterface()
-    edad.startInterface()
+    # edad.startInterface()
 
-    sleep(5)
+    # sleep(5)
 
     print('not done yet')

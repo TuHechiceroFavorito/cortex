@@ -21,6 +21,7 @@ class Application(tk.Frame):
         self.pack()
         self.preferences()
         self.widgets()
+        self.start_interfaces()
 
     def preferences(self):
         try:
@@ -72,6 +73,11 @@ class Application(tk.Frame):
 
     def print(self):
         print(self.led.estado)
+
+    def start_interfaces(self):
+        telegram = CreateInterface(tg.main)
+        telegram.startInterface()
+
 
 if __name__ == '__main__':
     root = tk.Tk()

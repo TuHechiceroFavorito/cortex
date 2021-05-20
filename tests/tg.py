@@ -5,9 +5,6 @@ import tkinter as tk
 
 import os
 
-root = tk.Tk()
-app = inter.Application(master=root)
-
 token = os.environ.get("cortex_tg")
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
