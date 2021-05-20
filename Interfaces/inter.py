@@ -81,6 +81,11 @@ class Application(tk.Frame):
         self.ir.dist = float(new_value)
         new_read = self.ir.read()
         self.value_sensor['text'] = f"Value of the sensor: {round(new_read, 2)}"
+        arduino_logic(self.ir, self.led)
+        if self.led.estado == 'on':
+            self.result["image"] = self.ledon
+        else:
+            self.result["image"] = self.ledoff
 
 
 if __name__ == '__main__':

@@ -24,6 +24,13 @@ class sensor:
 
         return dist_analog
 
+def arduino_logic(sensor, led):
+    if sensor.read() > 500:
+        led.ton()
+    else:
+        led.toff()
+    
+
 if __name__ == '__main__':
     #Testing led
     l1 = Led()
