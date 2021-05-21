@@ -26,12 +26,14 @@ signal.signal(signal.SIGINT, safe_stop)
 #This class creates an interface. It accepts as arguments the function to be threaded
 #and any argument that the function needs
 class CreateInterface:
-    def __init__(self, funk, *args):
+    def __init__(self, funk, *args, keep_alive=False):
         self.funk = funk
         self.args = tuple(args)
+        self.keep_alive = keep_alive
         self.stop_signal = threading.Event()    #Signal to stop the thread
         stop_signals.append(self.stop_signal)
         self.results = []
+        self.read = 0
 
     #Start the interface. It will pass the stopping signal as the first argument
     def startInterface(self):
@@ -54,20 +56,33 @@ class CreateInterface:
 
         if output != None:
             self.results.append(output)
+
+        if self.keep_alive and not self.stop_signal.is_set():
+            self.startInterface()
             
     #Set the signal to stop the thread
     def stopInterface(self):
         self.stop_signal.set()
+
+    def wait(self):
+        # while not self.thread.done() and self.read == len(self.results):
+        while self.read == len(self.results):
+            if self.stop_signal.is_set():
+                return None
+            pass
+        
+        self.read += 1
+        return self.results[-1]
         
 #This function has to be called to keep the main thread alive.
 #It will stop the loop when Ctrl+C is pressed or when there are no threads running
 def keepRunning():
     while True:
         sleep(1)
-        logging.debug(f"Total number of threads: {threading.enumerate()}")
-        logging.debug(f"{len(threading.enumerate())}")
+        logging.debug(f"Total number of threads: {threading.active_count()}")
+        logging.debug(f"{threading.enumerate()}")
         
-        if len(threading.enumerate()) == 1:
+        if threading.active_count() == 1:
             print('out')
             break
 
@@ -79,7 +94,7 @@ if __name__ == '__main__':
     mic = Mic()
 
     #Create the interfaces
-    voice = CreateInterface(mic.listening)
+    voice = CreateInterface(mic.listening, keep_alive=True)
     shining = CreateInterface(light.shine)
 
     #Start them
@@ -89,14 +104,13 @@ if __name__ == '__main__':
 
     sleep(3)
     mic.command = 1
-    
-    while len(voice.results) == 0:
-        pass
 
-    voice_command = voice.results[-1]
+    voice_command = voice.wait()
     light.state = voice_command
     sleep(1)
     mic.command = 0
+    voice_command = voice.wait()
+    light.state = voice_command
 
     # sleep(1)
     # #Destroy nombre interface

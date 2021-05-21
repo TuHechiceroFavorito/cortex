@@ -50,10 +50,11 @@ class Light:
     def shine(self, stop_signal):
         while True:
             sleep(0.5)
-            if self.state == "off":
+            if self.state == "on":
                 # a = 0/0
                 print("SHINING")
-            elif self.state == "on":
+                
+            elif self.state == "off":
                 print("NOT SHINING")
 
             if stop_signal.is_set():
