@@ -64,7 +64,7 @@ class CreateInterface:
     def stopInterface(self):
         self.stop_signal.set()
 
-    def wait(self):
+    def wait(self): #TODO Add timeout
         # while not self.thread.done() and self.read == len(self.results):
         while self.read == len(self.results):
             if self.stop_signal.is_set():
