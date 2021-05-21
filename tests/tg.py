@@ -2,6 +2,8 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 from Interfaces import inter
 import tkinter as tk
+from time import sleep
+import threading
 
 import os
 
@@ -30,7 +32,7 @@ def mainnet(update, context):
     app.mainloop()
 
 
-def main():
+def main(stop_signal):
     updater = Updater(token='1803680816:AAGOW6rlZk7LgUeODKDCF9sYPh5Wvr9kS9w', use_context=True)
 
     dp = updater.dispatcher
@@ -42,7 +44,15 @@ def main():
 
 
     updater.start_polling()
-    updater.idle()
+
+    while True:
+        sleep(1)
+        # print(threading.enumerate())
+        if stop_signal.is_set():
+            logging.info('Stopping Cortex interface with Telegram')
+            updater.stop()
+            logging.info('Interface stopped')
+            break
 
 if __name__ == '__main__':
     main()

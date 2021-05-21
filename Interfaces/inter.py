@@ -22,7 +22,6 @@ class Application(tk.Frame):
         self.pack()
         self.preferences()
         self.widgets()
-        self.start_interfaces()
 
     def preferences(self):
         try:
@@ -90,12 +89,25 @@ class Application(tk.Frame):
         else:
             self.result["image"] = self.ledoff
 
-    def start_interfaces(self):
-        telegram = CreateInterface(tg.main)
-        telegram.startInterface()
-
 
 if __name__ == '__main__':
+    telegram = CreateInterface(tg.main)
+    telegram.startInterface()
+    # keepRunning()
+
     root = tk.Tk()
     app = Application(master=root)
-    app.mainloop()
+    # app.mainloop()
+
+    def mainloop_sin_mierdas():
+        while True:
+            root.update()
+
+            if exit_event.is_set():
+                print('A tomar por culo la gui')
+                break
+
+    # gui = CreateInterface(mainloop_sin_mierdas)
+    # gui.startInterface()
+    mainloop_sin_mierdas()
+    # keepRunning()
