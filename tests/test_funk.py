@@ -21,3 +21,40 @@ def age(stop_signal, age=0):
         if stop_signal.is_set():
             print('age out')
             break
+
+class Mic:
+    def __init__(self, command=0):
+        self.command = command
+
+    def listening(self, stop_signal):
+        current_command = self.command
+        while True:
+            if current_command != self.command:
+                if self.command == 0:
+                    print("Turning light off")
+                    return "off"
+
+                else:
+                    print("Turning light on")
+                    return "on"
+
+                current_command = self.command
+            
+            if stop_signal.is_set():
+                break
+
+class Light:
+    def __init__(self, state="off"):
+        self.state = state
+
+    def shine(self, stop_signal):
+        while True:
+            sleep(0.5)
+            if self.state == "off":
+                # a = 0/0
+                print("SHINING")
+            elif self.state == "on":
+                print("NOT SHINING")
+
+            if stop_signal.is_set():
+                break
