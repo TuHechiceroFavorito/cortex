@@ -11,7 +11,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 exit_event = threading.Event()
 stop_signals = []
 
-def safe_stop(signum, frame):
+def safe_stop(signum=None, frame=None):
     for stop_signal in stop_signals:
         stop_signal.set()
 

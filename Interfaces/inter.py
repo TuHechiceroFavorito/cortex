@@ -93,21 +93,21 @@ class Application(tk.Frame):
 if __name__ == '__main__':
     telegram = CreateInterface(tg.main)
     telegram.startInterface()
-    # keepRunning()
 
     root = tk.Tk()
     app = Application(master=root)
-    # app.mainloop()
 
     def mainloop_sin_mierdas():
         while True:
-            root.update()
+            try:
+                root.update()
+            except tk._tkinter.TclError:
+                print('A tomar por culo la gui')
+                safe_stop()
+                break
 
             if exit_event.is_set():
                 print('A tomar por culo la gui')
                 break
 
-    # gui = CreateInterface(mainloop_sin_mierdas)
-    # gui.startInterface()
     mainloop_sin_mierdas()
-    # keepRunning()
