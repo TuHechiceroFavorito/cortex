@@ -59,3 +59,12 @@ class Light:
 
             if stop_signal.is_set():
                 break
+
+class Writer:
+    def __init__(self, memObj, name):
+        self.memObj = memObj
+        self.name = name
+        self.memObj.pool.update({name:[]})
+
+    def write(self, text="Testing"):
+        self.memObj.pool[self.name].append(text)
