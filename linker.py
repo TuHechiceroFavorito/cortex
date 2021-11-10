@@ -78,7 +78,7 @@ def safe_stop(signum=None, frame=None):
 #It will stop the loop when Ctrl+C is pressed or when there are no threads running
 def keepRunning():
     #Set the signal for Ctrl+C
-    signal.signal(signal.SIGBREAK, safe_stop)
+    signal.signal(signal.SIGINT, safe_stop)
 
     while True:
         sleep(1)
